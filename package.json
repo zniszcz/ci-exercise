@@ -1,14 +1,20 @@
 {
-  "name": "static",
+  "name": "generator-ne-vue-app-static",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "NE-Static Vue app generator.",
   "scripts": {
     "start": "webpack-dev-server --mode development --config ./config/webpack-dev.config.js",
     "build": "webpack --mode production --config ./config/webpack-prod.config.js"
   },
+  "files": [
+    "generators"
+  ],
+  "keywords": ["yeoman-generator"],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "yeoman-generator": "^1.0.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.3.0",

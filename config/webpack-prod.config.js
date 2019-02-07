@@ -15,6 +15,7 @@ module.exports = merge(webpackBaseConfig, {
                     // Plugin is added in webpack base config
                     MiniCssExtractPlugin.loader,
                     'css-loader',
+                    'postcss-loader',
                     'sass-loader',
                 ],
             },

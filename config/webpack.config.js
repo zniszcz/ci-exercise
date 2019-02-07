@@ -1,11 +1,22 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const SassLintPlugin = require('sass-lint-webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const config = require('./config');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require('path');
+const walkSync = require('../utils/walkSync');
+
+// This returns an array with paths to all
+// scripts files inside /src/js/ that are
+// later given to webpack as an entry point
+const scripts = walkSync('src/js')
+    .map((scriptPath) => `./${scriptPath}`);
 
 const webpackBaseConfig = {
     entry: {
-        main: config.scripts,
+        main: scripts,
+    },
+    output: {
+        path: path.resolve(__dirname, '../dist/'),
     },
     module: {
         rules: [
@@ -45,6 +56,9 @@ const webpackBaseConfig = {
                         },
                     },
                     {
+                        loader: 'postcss-loader',
+                    },
+                    {
                         loader: 'webfonts-loader',
                         options: {
                             // prefix for generated font links in main.css file
@@ -59,7 +73,9 @@ const webpackBaseConfig = {
                     {
                         loader: 'file-loader',
                         options: {
-                            outputPath: 'images/',
+                            // Save files with thier original names
+                            name: '[name].[ext]',
+                            outputPath: 'images',
                         },
                     },
                 ],
@@ -67,6 +83,10 @@ const webpackBaseConfig = {
         ],
     },
     plugins: [
+        new HtmlWebPackPlugin({
+            template: 'src/index.html',
+            filename: 'index.html',
+        }),
         // Plugin allows to lint sa/css files
         // https://www.npmjs.com/package/sass-lint-webpack
         new SassLintPlugin(),
@@ -75,19 +95,36 @@ const webpackBaseConfig = {
             // to be extracted to separate file
             filename: 'main.css',
         }),
+        // If images are only referenced in HTML files as <img> tags
+        // webpack won't pick them up by default
+        new CopyWebpackPlugin([
+            {
+                from: 'src/images',
+                to: 'images',
+            },
+            {
+                from: 'src/media',
+                to: 'media',
+            },
+            {
+                from: 'src/fonts',
+                to: 'fonts',
+            },
+        ]),
     ],
 };
+
 
 // Following part tells webpack to
 // digest every template partial
 // given in config object
-const templates = config.templates;
+const templates = walkSync('src/templates');
 
 templates.forEach((template) => {
     webpackBaseConfig.plugins.push(
         new HtmlWebPackPlugin({
-            template: `src/${template}`,
-            filename: template,
+            template: template,
+            filename: template.substring(4),
         })
     );
 });

@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const walkSync = require('../utils/walkSync');
+const Dotenv = require('dotenv-webpack');
 
 // This returns an array with paths to all
 // scripts files inside /src/js/ that are
@@ -111,6 +112,7 @@ const webpackBaseConfig = {
                 to: 'fonts',
             },
         ]),
+        new Dotenv(),
     ],
 };
 

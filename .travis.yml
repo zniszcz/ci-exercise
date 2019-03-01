@@ -10,4 +10,5 @@ jobs:
         - stage: build static application
           script: npm run build
         - stage: build docker image
+          script: npm run build
           script: docker build . -t latest-version

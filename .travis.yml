@@ -5,8 +5,6 @@ services:
 
 jobs:
     include:
-        - stage: instal dependencies
-          script: npm ci
         - stage: build static application
           script: npm run build
         - stage: build docker image

@@ -6,6 +6,6 @@ services:
 jobs:
     include:
         - stage: instal dependencies
-          script: ./npm ci
+          script: npm ci
         - stage: build
-          script: ./npm run build
+          script: npm run build

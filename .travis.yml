@@ -7,7 +7,7 @@ jobs:
     include:
         - stage: instal dependencies
           script: npm ci
-        - stage: build
+        - stage: build static application
           script: npm run build
         - stage: build docker image
-          script: docker build . -t "$VERSION"
+          script: docker build . -t latest-version

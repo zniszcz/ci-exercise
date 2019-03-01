@@ -9,3 +9,5 @@ jobs:
           script: npm ci
         - stage: build
           script: npm run build
+        - stage: build docker image
+          script: docker build . -t "$VERSION"

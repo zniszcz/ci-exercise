@@ -9,6 +9,9 @@ jobs:
           script: npm run build
         - stage: build docker image
           script: npm run build
-          script: docker build . -t latest-version
-          script: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-          script: docker push $DOCKER_USERNAME/sample-ci-experiment
+          script:
+          - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+          - docker build -t sample-ci-experiment .
+          - docker images
+          - docker tag sample-ci-experiment $DOCKER_USERNAME/sample-ci-experiment
+          - docker push $DOCKER_USERNAME/sample-ci-experiment

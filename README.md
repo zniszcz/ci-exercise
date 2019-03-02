@@ -1,4 +1,5 @@
-# NE STATIC WEBPACK BOILERPLATE
+# NESB [![Build Status](https://travis-ci.org/zniszcz/ci-exercise.svg?branch=master)](https://travis-ci.org/zniszcz/ci-exercise)
+STATIC WEBPACK BOILERPLATE
 
 ## Getting Started
 

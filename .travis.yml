@@ -8,8 +8,8 @@ jobs:
         - stage: build static application
           script: npm run build
         - stage: build docker image
-          script: npm run build
           script:
+          - npm run build
           - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
           - docker build -t sample-ci-experiment .
           - docker images

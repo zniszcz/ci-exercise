@@ -13,5 +13,5 @@ jobs:
           - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
           - docker build -t sample-ci-experiment .
           - docker images
-          - docker tag sample-ci-experiment $DOCKER_USERNAME/sample-ci-experiment
+          - docker tag sample-ci-experiment $DOCKER_USERNAME/sample-ci-experiment:$(node -p -e "require('./package.json').version")
           - docker push $DOCKER_USERNAME/sample-ci-experiment

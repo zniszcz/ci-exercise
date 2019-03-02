@@ -8,4 +8,5 @@ jobs:
         - stage: build static application
           script: npm run build
         - stage: build docker image
+          script: echo $SAMPLE_ENV_VAR
           script: npm run build && docker build . -t latest-version

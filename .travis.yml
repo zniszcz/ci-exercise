@@ -8,4 +8,7 @@ jobs:
         - stage: build static application
           script: npm run build
         - stage: build docker image
-          script: npm run build && docker build . -t latest-version && docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && docker push zniszcz/sample-ci-experiment
+          script: npm run build
+          script: docker build . -t latest-version
+          script: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          script: docker push $DOCKER_USERNAME/sample-ci-experiment
